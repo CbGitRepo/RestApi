@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "myCnxString": "server=(localdb)\\MSSQLLocalDB;Database=master;Integrated Security=True;MultipleActiveResultSets=True"
+  }
+}

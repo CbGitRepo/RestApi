@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AngularNetCoreSample</name>
+    </assembly>
+    <members>
+        <member name="T:AngularNetCoreSample.Controllers.ClientController">
+            <summary>
+            Client controller will allow you to extract all client information
+            </summary>
+        </member>
+        <member name="M:AngularNetCoreSample.Controllers.ClientController.GetClients">
+            <summary>
+            This will return all registered clients
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AngularNetCoreSample.Controllers.ClientController.GetCommandesForClient(System.Int32)">
+            <summary>
+            This will return the list of orders for a specific client
+            </summary>
+            <param name="id"> the Id of the client</param>
+            <returns></returns>
+        </member>
+        <member name="M:AngularNetCoreSample.Controllers.ClientController.GetProducts(System.Int32,System.Int32)">
+            <summary>
+            This will return the product of a specific order of a client
+            </summary>
+            <param name="idclient">The client Id</param>
+            <param name="idcommand">The order Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:AngularNetCoreSample.Controllers.ClientController.add(AngularNetCoreSample.Models.Client)">
+            <summary>
+            This will add a client to the list of registered clients
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AngularNetCoreSample.Controllers.ClientController.Edit(System.Int32,AngularNetCoreSample.Models.Client)">
+            <summary>
+            This will update the client information
+            </summary>
+            <param name="id">The client Id</param>
+            <param name="newItem"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AngularNetCoreSample.Controllers.ClientController.Delete(System.Int32)">
+            <summary>
+            This will remove the client from the list of registered clients
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
