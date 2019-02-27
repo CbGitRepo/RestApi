@@ -12,8 +12,10 @@ namespace AngularNetCoreSample.Data
 
         public ClientDBContext(DbContextOptions<ClientDBContext> options) : base(options) { }
         public DbSet<Entities.Client> Clients { get; set; }
-       public DbSet<Entities.Commande> Commandes { get; set; }
+        public DbSet<Entities.Commande> Commandes { get; set; }
         public DbSet<Entities.Product> Products { get; set; }
+        public DbSet<Entities.User> Users { get; set; }
+
 
 
     }

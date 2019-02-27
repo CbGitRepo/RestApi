@@ -1,5 +1,10 @@
 {
   "ConnectionStrings": {
     "myCnxString": "server=(localdb)\\MSSQLLocalDB;Database=master;Integrated Security=True;MultipleActiveResultSets=True"
+  },
+  "Jwt": {
+    "SingningKey": "Chaima is my name",
+    "ExpiryInMinutes": "60"
+
   }
 }

@@ -22,6 +22,7 @@ namespace AngularNetCoreSample.Data
                 _ctx.AddRange(_sample);
                 await _ctx.SaveChangesAsync();
             }
+            
         }
         List<Client> _sample = new List<Client>
     {

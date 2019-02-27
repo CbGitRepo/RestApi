@@ -110,7 +110,7 @@ namespace AngularNetCoreSample.Controllers
             if (await _repo.SaveAllAsync())
             {
                 var varUrl = Url.Link("getClient", new { id = item.Id });
-                return Created(varUrl, item);
+                return Ok(new { FIrstName = item.FirstName });
             }
             return BadRequest();
         }
