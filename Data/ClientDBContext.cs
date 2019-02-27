@@ -15,8 +15,6 @@ namespace AngularNetCoreSample.Data
         public DbSet<Entities.Commande> Commandes { get; set; }
         public DbSet<Entities.Product> Products { get; set; }
         public DbSet<Entities.User> Users { get; set; }
-
-
-
+        
     }
 }

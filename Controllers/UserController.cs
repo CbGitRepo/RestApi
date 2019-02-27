@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AngularNetCoreSample.Data;
 using AngularNetCoreSample.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AngularNetCoreSample.Controllers
 {
+    [EnableCors("AllowAllOrigins")]
     public class UserController : Controller
     {
         IClientRepository _repo;
@@ -30,22 +33,37 @@ namespace AngularNetCoreSample.Controllers
         /// <returns></returns>
         [Route("register")]
         [HttpPost]
-        public async Task<IActionResult> InsertUser([FromBody]User objUser)
+        public async Task<IActionResult> InsertUser([FromBody] User objUser)
         {
-            var identity = new IdentityUser
+           if(!ModelState.IsValid)
             {
-                Email = objUser.email,
-                UserName = objUser.email,
-                SecurityStamp = Guid.NewGuid().ToString()
-
-            };
-        _repo.Add(objUser);
+                return BadRequest(ModelState);
+            }
+            _repo.AddUser(objUser);
 
             if (await _repo.SaveAllAsync())
             {
                 return Ok(new { UserName = objUser.email });
             }
             return BadRequest();
-}
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public IActionResult Authenticate([FromBody]User userParam)
+        {
+            var user = _repo.Authenticate(userParam.email, userParam.password);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(user);
+        }
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var users = _repo.GetAll();
+            return Ok(users);
+        }
     }
 }

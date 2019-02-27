@@ -52,5 +52,12 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:AngularNetCoreSample.Controllers.UserController.InsertUser(AngularNetCoreSample.Models.User)">
+            <summary>
+            Register new user
+            </summary>
+            <param name="objUser"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

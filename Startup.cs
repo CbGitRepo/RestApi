@@ -30,7 +30,7 @@ namespace AngularNotCore
             services.AddDbContext<ClientDBContext>(cfg =>
             {
                 cfg.UseSqlServer(_Config.GetConnectionString("myCnxString")); // we need to add where the c
-            }, ServiceLifetime.Scoped
+            }, ServiceLifetime.Scoped 
              );
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddTransient<ClientDbInitializer>();
@@ -59,12 +59,13 @@ namespace AngularNotCore
             //    //c.IncludeXmlComments(pathxml);
             //}
             //);
-            var appSettingsSection = _Config.GetSection("Jwt");
-            services.Configure<Jwt>(appSettingsSection);
+            // configure strongly typed settings objects
+            var appSettingsSection = _Config.GetSection("AppSetting:key");
+            //services.Configure<Jwt>(appSettingsSection);
 
-            // configure jwt authentication
-            var appSettings = appSettingsSection.Get<Jwt>();
-            var key = Encoding.ASCII.GetBytes(appSettings.signingKey);
+            //// configure jwt authentication
+            //var appSettings = appSettingsSection.Get<Jwt>();
+            var key = Encoding.ASCII.GetBytes(appSettingsSection.Value);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -77,16 +78,17 @@ namespace AngularNotCore
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
             });
 
+
         }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env,ClientDbInitializer initDB)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,ClientDbInitializer initDB)
         {
             if (env.IsDevelopment())
             {
@@ -107,7 +109,10 @@ namespace AngularNotCore
             app.UseSwagger();
             app.UseSwaggerUi3();///URl : /swagger
             ////////////////////////////////////////////////////////////////
-
+            app.UseCors(x => x
+              .AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
 
 
             app.UseMvc(routes =>

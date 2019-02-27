@@ -105,12 +105,16 @@ namespace AngularNetCoreSample.Controllers
         [HttpPost]
         public async Task<IActionResult> add([FromBody] Client item)
         {
-            _repo.Add(item);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+             _repo.AddClient(item);
 
             if (await _repo.SaveAllAsync())
             {
                 var varUrl = Url.Link("getClient", new { id = item.Id });
-                return Ok(new { FIrstName = item.FirstName });
+                return Ok(new { firstName = item.FirstName });
             }
             return BadRequest();
         }

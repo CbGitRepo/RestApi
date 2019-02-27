@@ -8,13 +8,13 @@ namespace AngularNetCoreSample.Models
 {
     public class User
     {
+        public int Id { get; set; }
         [Required]
         public string firstName { get; set; }
-        [Required]
         public string lastName { get; set; }
-        [Required]
         public string email { get; set; }
-        [Required]
         public string password { get; set; }
+        public string Token { get; set; }
+
     }
 }
